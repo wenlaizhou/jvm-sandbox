@@ -42,7 +42,8 @@ public class CoreLauncher {
 
             // call the core launcher
             new CoreLauncher(args[0], args[1], args[2]);
-        } catch (Throwable t) {
+        }
+        catch (Throwable t) {
             t.printStackTrace(System.err);
             System.err.println("sandbox load jvm failed : " + getCauseMessage(t));
             System.exit(-1);
@@ -71,13 +72,15 @@ public class CoreLauncher {
             // 使用 attach(String pid) 这种方式
             if (null == attachVmdObj) {
                 vmObj = vmClass.getMethod("attach", String.class).invoke(null, targetJvmPid);
-            } else {
+            }
+            else {
                 vmObj = vmClass.getMethod("attach", vmdClass).invoke(null, attachVmdObj);
             }
             vmClass
                     .getMethod("loadAgent", String.class, String.class)
                     .invoke(vmObj, agentJarPath, cfg);
-        } finally {
+        }
+        finally {
             if (null != vmObj) {
                 vmClass.getMethod("detach", (Class<?>[]) null).invoke(vmObj, (Object[]) null);
             }

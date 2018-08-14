@@ -30,6 +30,7 @@ public interface CoreServer {
      * 获取服务器绑定本地网络信息
      *
      * @return 服务器绑定本地网络信息
+     *
      * @throws IOException 绑定失败
      */
     InetSocketAddress getLocal() throws IOException;
@@ -39,6 +40,7 @@ public interface CoreServer {
      *
      * @param cfg  内核配置信息
      * @param inst inst
+     *
      * @throws IOException 绑定失败
      */
     void bind(CoreConfigure cfg, Instrumentation inst) throws IOException;

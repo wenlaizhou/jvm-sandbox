@@ -44,6 +44,7 @@ public class WebSocketAcceptorServlet extends WebSocketServlet {
      *
      * @param req      req
      * @param protocol websocket protocol
+     *
      * @return WebSocket
      */
     @Override
@@ -75,7 +76,8 @@ public class WebSocketAcceptorServlet extends WebSocketServlet {
 
         if (listener instanceof TextMessageListener) {
             return new InnerOnTextMessage(uniqueId, (TextMessageListener) listener);
-        } else {
+        }
+        else {
             return new InnerWebSocket(uniqueId, listener);
         }
     }
@@ -114,6 +116,7 @@ public class WebSocketAcceptorServlet extends WebSocketServlet {
     private class InnerWebSocket implements WebSocket {
 
         final String uniqueId;
+
         final WebSocketConnectionListener listener;
 
         private WebSocketConnection conn = null;
@@ -160,7 +163,8 @@ public class WebSocketAcceptorServlet extends WebSocketServlet {
         public void onClose(int closeCode, String message) {
             try {
                 listener.onClose(closeCode, message);
-            } finally {
+            }
+            finally {
                 moduleResourceManager.remove(uniqueId, conn);
             }
         }

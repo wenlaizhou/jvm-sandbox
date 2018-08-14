@@ -17,6 +17,7 @@ public interface ModuleResourceManager extends ModuleLifeCycleEventListener {
      * @param uniqueId 模块ID
      * @param resource 可释放资源封装
      * @param <T>      资源实体
+     *
      * @return 资源实体本身
      */
     <T> T append(String uniqueId, WeakResource<T> resource);

@@ -20,7 +20,9 @@ import sun.misc.Unsafe;
 public class EventPool {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final KeyedObjectPool<Event.Type, Event> pool;
+
     private final boolean isEnable;
 
     public EventPool() {
@@ -43,7 +45,8 @@ public class EventPool {
                     cfg.getEventPoolMaxTotal()
             );
             return new GenericKeyedObjectPool<Event.Type, Event>(new EventFactory(), poolConfig);
-        } else {
+        }
+        else {
             logger.info("disable event-pool.");
             return null;
         }
@@ -91,7 +94,8 @@ public class EventPool {
                         target, argumentArray
                 );
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow BeforeEvent[processId={};invokeId={};class={};method={};] failed.",
                         processId, invokeId, javaClassName, javaMethodName, cause);
             }
@@ -111,7 +115,8 @@ public class EventPool {
                 final ReturnEvent event = (ReturnEvent) pool.borrowObject(Event.Type.RETURN);
                 initReturnEvent(event, processId, invokeId, object);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow ReturnEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -127,7 +132,8 @@ public class EventPool {
                 final ThrowsEvent event = (ThrowsEvent) pool.borrowObject(Event.Type.THROWS);
                 initThrowsEvent(event, processId, invokeId, throwable);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow ThrowsEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -143,7 +149,8 @@ public class EventPool {
                 final LineEvent event = (LineEvent) pool.borrowObject(Event.Type.LINE);
                 initLineEvent(event, processId, invokeId, lineNumber);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow LineEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -159,7 +166,8 @@ public class EventPool {
                 final ImmediatelyReturnEvent event = (ImmediatelyReturnEvent) pool.borrowObject(Event.Type.IMMEDIATELY_RETURN);
                 initReturnEvent(event, processId, invokeId, object);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow ImmediatelyReturnEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -175,7 +183,8 @@ public class EventPool {
                 final ImmediatelyThrowsEvent event = (ImmediatelyThrowsEvent) pool.borrowObject(Event.Type.IMMEDIATELY_THROWS);
                 initThrowsEvent(event, processId, invokeId, throwable);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow ImmediatelyThrowsEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -194,7 +203,8 @@ public class EventPool {
                 final CallBeforeEvent event = (CallBeforeEvent) pool.borrowObject(Event.Type.CALL_BEFORE);
                 initCallBeforeEvent(event, processId, invokeId, lineNumber, owner, name, desc);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow CallBeforeEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -209,7 +219,8 @@ public class EventPool {
                 final CallReturnEvent event = (CallReturnEvent) pool.borrowObject(Event.Type.CALL_RETURN);
                 initCallReturnEvent(event, processId, invokeId);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow CallReturnEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -225,7 +236,8 @@ public class EventPool {
                 final CallThrowsEvent event = (CallThrowsEvent) pool.borrowObject(Event.Type.CALL_THROWS);
                 initCallThrowsEvent(event, processId, invokeId, throwException);
                 return event;
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool borrow CallThrowsEvent[processId={};invokeId={};] failed.",
                         processId, invokeId, cause);
             }
@@ -243,7 +255,8 @@ public class EventPool {
         if (isEnable) {
             try {
                 pool.returnObject(event.type, event);
-            } catch (Exception cause) {
+            }
+            catch (Exception cause) {
                 logger.warn("EventPool return event={} failed.", event, cause);
             }
         }
@@ -251,25 +264,41 @@ public class EventPool {
 
 
     private static final int ILLEGAL_PROCESS_ID = -1;
+
     private static final int ILLEGAL_INVOKE_ID = -1;
 
     private static final Unsafe unsafe;
+
     private static final long processIdFieldInInvokeEventOffset;
+
     private static final long invokeIdFieldInInvokeEventOffset;
+
     private static final long javaClassLoaderFieldInBeforeEventOffset;
+
     private static final long javaClassNameFieldInBeforeEventOffset;
+
     private static final long javaMethodNameFieldInBeforeEventOffset;
+
     private static final long javaMethodDescFieldInBeforeEventOffset;
+
     private static final long targetFieldInBeforeEventOffset;
+
     private static final long argumentArrayFieldInBeforeEventOffset;
+
     private static final long objectFieldInReturnEventOffset;
+
     private static final long throwableFieldInThrowsEventOffset;
+
     private static final long lineNumberFieldInLineEventOffset;
 
     private static final long lineNumberFieldInCallBeforeEventOffset;
+
     private static final long ownerFieldInCallBeforeEventOffset;
+
     private static final long nameFieldInCallBeforeEventOffset;
+
     private static final long descFieldInCallBeforeEventOffset;
+
     private static final long throwExceptionFieldInCallThrowsEventOffset;
 
     static {
@@ -292,7 +321,8 @@ public class EventPool {
             nameFieldInCallBeforeEventOffset = unsafe.objectFieldOffset(CallBeforeEvent.class.getDeclaredField("name"));
             descFieldInCallBeforeEventOffset = unsafe.objectFieldOffset(CallBeforeEvent.class.getDeclaredField("desc"));
             throwExceptionFieldInCallThrowsEventOffset = unsafe.objectFieldOffset(CallThrowsEvent.class.getDeclaredField("throwException"));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new Error(e);
         }
     }

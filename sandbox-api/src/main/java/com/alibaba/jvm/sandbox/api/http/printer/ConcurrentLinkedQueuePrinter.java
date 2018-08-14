@@ -16,17 +16,24 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConcurrentLinkedQueuePrinter implements Printer {
 
     private static final String NUL_STRING = new String(new byte[]{0x00});
+
     private final PrintWriter writer;
+
     private final ConcurrentLinkedQueue<String> writeQueue;
+
     private final ReentrantLock lock = new ReentrantLock();
+
     private final Condition condition = lock.newCondition();
+
     private final int capacity;
 
     // 是否被打断
     private final AtomicBoolean isBrokenRef = new AtomicBoolean(false);
 
     private final long delayStepTimeMs;
+
     private final long delayMaxTimeMs;
+
     private volatile long delayTimeMs;
 
     /**
@@ -92,7 +99,8 @@ public class ConcurrentLinkedQueuePrinter implements Printer {
             final String string = writeQueue.poll();
             if (null == string) {
                 writer.print(NUL_STRING);
-            } else {
+            }
+            else {
                 writer.print(string);
             }
         }
@@ -108,7 +116,8 @@ public class ConcurrentLinkedQueuePrinter implements Printer {
     private long computeDelayTimeMs() {
         if (delayTimeMs >= delayMaxTimeMs) {
             return delayTimeMs;
-        } else {
+        }
+        else {
             final long newDelayTime = delayTimeMs + delayStepTimeMs;
             delayTimeMs = newDelayTime < delayMaxTimeMs
                     ? newDelayTime
@@ -129,7 +138,8 @@ public class ConcurrentLinkedQueuePrinter implements Printer {
         lock.lock();
         try {
             condition.await(computeDelayTimeMs(), TimeUnit.MILLISECONDS);
-        } finally {
+        }
+        finally {
             lock.unlock();
         }
     }
@@ -173,15 +183,18 @@ public class ConcurrentLinkedQueuePrinter implements Printer {
                         heartBeat = 0;
                         writer.write(0x0);
                     }
-                } else {
+                }
+                else {
                     flush();
                     resetDelayTimeMs();
                 }
             }
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             flush();
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             // maybe IOException
         }
 
@@ -206,7 +219,8 @@ public class ConcurrentLinkedQueuePrinter implements Printer {
         if (null != writer) {
             try {
                 writer.close();
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 // ignore...
             }
         }

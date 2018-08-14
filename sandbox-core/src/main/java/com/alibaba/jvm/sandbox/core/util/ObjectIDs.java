@@ -45,6 +45,7 @@ public class ObjectIDs {
 
     // --- ObjectID : Object 的映射关系维护 ----------------------------------------+
     private final ReferenceQueue<Object> rQueue = new ReferenceQueue<Object>(); //|
+
     private final HashMap<Integer, IdentityWeakReference> identityObjectMapping //|
             = new HashMap<Integer, IdentityWeakReference>();                    //|
     // ---------------------------------------------------------------------------+
@@ -63,6 +64,7 @@ public class ObjectIDs {
      * </p>
      *
      * @param object 待映射的Java对象
+     *
      * @return 对象ID
      */
     public int identity(final Object object) {
@@ -77,7 +79,8 @@ public class ObjectIDs {
             if (null != objectID) {
                 return objectID;
             }
-        } finally {
+        }
+        finally {
             rwLock.readLock().unlock();
             expungeIdentityObjectMapping();
         }
@@ -87,14 +90,16 @@ public class ObjectIDs {
             final Integer nextObjectID;
             if (objectIDMapping.containsKey(object)) {
                 nextObjectID = objectIDMapping.get(object);
-            } else {
+            }
+            else {
                 mapping(
                         nextObjectID = objectIDSequencer.next(),
                         object
                 );
             }
             return nextObjectID;
-        } finally {
+        }
+        finally {
             rwLock.writeLock().unlock();
         }
     }
@@ -114,7 +119,8 @@ public class ObjectIDs {
 
             // 映射 [objectID : object]
             identityObjectMapping.put(objectID, new IdentityWeakReference(objectID, object));
-        } finally {
+        }
+        finally {
             rwLock.writeLock().unlock();
         }
     }
@@ -128,7 +134,8 @@ public class ObjectIDs {
                 rwLock.writeLock().lock();
                 try {
                     identityObjectMapping.remove(((IdentityWeakReference) x).objectID);
-                } finally {
+                }
+                finally {
                     rwLock.writeLock().unlock();
                 }
             }
@@ -139,6 +146,7 @@ public class ObjectIDs {
      * 映射{@code objectID}为Java对象
      *
      * @param objectID 对象ID
+     *
      * @return Java对象
      */
     public <T> T getObject(final int objectID) {
@@ -154,10 +162,12 @@ public class ObjectIDs {
             if (null != reference
                     && null != (object = reference.get())) {
                 return (T) object;
-            } else {
+            }
+            else {
                 return null;
             }
-        } finally {
+        }
+        finally {
             rwLock.readLock().unlock();
             expungeIdentityObjectMapping();
         }

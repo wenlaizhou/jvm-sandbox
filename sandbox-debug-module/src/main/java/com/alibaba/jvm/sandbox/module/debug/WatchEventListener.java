@@ -21,8 +21,11 @@ import java.util.Stack;
 public class WatchEventListener implements EventListener {
 
     private final Printer printer;
+
     private final Set<DebugModule.Trigger> triggers;
+
     private final String watchExpress;
+
     private final int expand;
 
     private final ThreadLocal<Stack<Object>> stackRef = new ThreadLocal<Stack<Object>>() {
@@ -62,7 +65,8 @@ public class WatchEventListener implements EventListener {
                 printer.println(GaStringUtils.toString(watchObject, expand));
             }
 
-        } else if (event instanceof ReturnEvent
+        }
+        else if (event instanceof ReturnEvent
                 || event instanceof ThrowsEvent) {
 
             final Stack<Object> stack = stackRef.get();
@@ -86,14 +90,16 @@ public class WatchEventListener implements EventListener {
                 final Express express = Express.ExpressFactory.newExpress(bind);
                 final Object watchObject = express.get(watchExpress);
                 printer.println(GaStringUtils.toString(watchObject, expand));
-            } else if (event instanceof ThrowsEvent
+            }
+            else if (event instanceof ThrowsEvent
                     && triggers.contains(DebugModule.Trigger.THROWS)) {
                 final ThrowsEvent throwsEvent = (ThrowsEvent) event;
                 bind.put("throw", throwsEvent.throwable);
                 final Express express = Express.ExpressFactory.newExpress(bind);
                 final Object watchObject = express.get(watchExpress);
                 printer.println(GaStringUtils.toString(watchObject, expand));
-            } else {
+            }
+            else {
                 return;
             }
 

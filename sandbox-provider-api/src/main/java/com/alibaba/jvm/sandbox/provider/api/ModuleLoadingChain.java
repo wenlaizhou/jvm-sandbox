@@ -24,6 +24,7 @@ public interface ModuleLoadingChain {
      * @param module            模块实例
      * @param moduleJarFile     模块所在Jar文件
      * @param moduleClassLoader 负责加载模块的ClassLoader
+     *
      * @throws Throwable 模块加载异常
      */
     void loading(final String uniqueId, final Class moduleClass, final Module module, final File moduleJarFile,

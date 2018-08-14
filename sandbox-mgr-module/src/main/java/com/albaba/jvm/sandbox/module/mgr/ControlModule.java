@@ -131,7 +131,8 @@ public class ControlModule implements Module {
                     unloadSelf();
                     shutdownServer(sandboxClassLoader);
                     logger.info("shutdown jvm-sandbox finished.");
-                } catch (Throwable cause) {
+                }
+                catch (Throwable cause) {
                     logger.warn("shutdown jvm-sandbox failed.", cause);
                 }
             }

@@ -51,7 +51,8 @@ public class ReWriteMethod extends AdviceAdapter implements Opcodes, AsmTypes, A
     final protected void loadThisOrPushNullIfIsStatic() {
         if (isStaticMethod()) {
             pushNull();
-        } else {
+        }
+        else {
             loadThis();
         }
     }

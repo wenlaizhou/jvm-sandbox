@@ -70,6 +70,7 @@ public class AgentLauncher {
             = new ConcurrentHashMap<String, ClassLoader>();
 
     private static final String CLASS_OF_CORE_CONFIGURE = "com.alibaba.jvm.sandbox.core.CoreConfigure";
+
     private static final String CLASS_OF_JETTY_CORE_SERVER = "com.alibaba.jvm.sandbox.core.server.jetty.JettyCoreServer";
 
 
@@ -121,7 +122,8 @@ public class AgentLauncher {
                 && (!file.isFile()
                 || !file.canWrite())) {
             throw new RuntimeException("write to result file : " + file + " failed.");
-        } else {
+        }
+        else {
             FileWriter fw = null;
             try {
                 fw = new FileWriter(file, true);
@@ -134,13 +136,16 @@ public class AgentLauncher {
                         )
                 );
                 fw.flush();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
+            }
+            finally {
                 if (null != fw) {
                     try {
                         fw.close();
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e) {
                         // ignore
                     }
                 }
@@ -173,6 +178,7 @@ public class AgentLauncher {
      * 清理namespace所指定的ClassLoader
      *
      * @param namespace 命名空间
+     *
      * @return 被清理的ClassLoader
      */
     public static synchronized ClassLoader cleanClassLoader(final String namespace) {
@@ -219,7 +225,8 @@ public class AgentLauncher {
                     classOfJtServer
                             .getMethod("bind", classOfConfigure, Instrumentation.class)
                             .invoke(objectOfJtServer, objectOfCoreConfigure, inst);
-                } catch (Throwable t) {
+                }
+                catch (Throwable t) {
                     classOfJtServer.getMethod("destroy").invoke(objectOfJtServer);
                     throw t;
                 }
@@ -232,7 +239,8 @@ public class AgentLauncher {
                     .invoke(objectOfJtServer);
 
 
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             throw new RuntimeException("sandbox attach failed.", cause);
         }
 
@@ -244,15 +252,19 @@ public class AgentLauncher {
     private static final String EMPTY_STRING = "";
 
     private static final String KEY_NAMESPACE = "namespace";
+
     private static final String DEFAULT_NAMESPACE = "default";
 
     private static final String KEY_SERVER_IP = "ip";
+
     private static final String DEFAULT_IP = "0.0.0.0";
 
     private static final String KEY_SERVER_PORT = "port";
+
     private static final String DEFAULT_PORT = "0";
 
     private static final String KEY_TOKEN = "token";
+
     private static final String DEFAULT_TOKEN = EMPTY_STRING;
 
     private static final String KEY_PROPERTIES_FILE_PATH = "prop";

@@ -29,6 +29,7 @@ public interface EventMonitor {
          * 获取指定事件类型已分配对象数量
          *
          * @param type 指定事件类型
+         *
          * @return 指定事件类型已分配数量
          */
         int getNumActive(Event.Type type);
@@ -44,6 +45,7 @@ public interface EventMonitor {
          * 获取指定事件类型总空闲对象数量
          *
          * @param type 指定事件类型
+         *
          * @return 指定事件类型总空闲对象数量
          */
         int getNumIdle(Event.Type type);

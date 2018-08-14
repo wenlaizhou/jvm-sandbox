@@ -29,8 +29,11 @@ import java.util.ServiceLoader;
 public class DefaultProviderManager implements ProviderManager {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final Collection<ModuleJarLoadingChain> moduleJarLoadingChains = new ArrayList<ModuleJarLoadingChain>();
+
     private final Collection<ModuleLoadingChain> moduleLoadingChains = new ArrayList<ModuleLoadingChain>();
+
     private final CoreConfigure cfg;
 
     public DefaultProviderManager(final CoreConfigure cfg,
@@ -38,7 +41,8 @@ public class DefaultProviderManager implements ProviderManager {
         this.cfg = cfg;
         try {
             init(cfg, sandboxClassLoader);
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             logger.warn("loading sandbox's provider-lib[{}] failed.", cfg.getProviderLibPath(), cause);
         }
     }
@@ -64,9 +68,11 @@ public class DefaultProviderManager implements ProviderManager {
                 inject(moduleLoadingChains, ModuleLoadingChain.class, providerClassLoader, providerJarFile);
 
                 logger.info("loading provider-jar[{}] was success.", providerJarFile);
-            } catch (IllegalAccessException cause) {
+            }
+            catch (IllegalAccessException cause) {
                 logger.warn("loading provider-jar[{}] occur error, inject provider resource failed.", providerJarFile, cause);
-            } catch (IOException ioe) {
+            }
+            catch (IOException ioe) {
                 logger.warn("loading provider-jar[{}] occur error, ignore load this provider.", providerJarFile, ioe);
             }
 

@@ -20,6 +20,7 @@ public interface ModuleEventWatcher {
      *                  观察到的事件将会告知此事件监听器
      * @param progress  观察渲染进度报告
      * @param eventType 观察事件类型
+     *
      * @return {@code watchId}，本次观察的唯一编号，{@code watcherId}对象将会是整个操作的唯一KEY，后续删除观察事件的时候也需要通过同一个{@code watcherId}来完成
      */
     int watch(Filter filter, EventListener listener, Progress progress, Event.Type... eventType);
@@ -32,6 +33,7 @@ public interface ModuleEventWatcher {
      * @param listener  事件监听器
      *                  观察到的事件将会告知此事件监听器
      * @param eventType 观察事件类型
+     *
      * @return {@code watchId}，本次观察的唯一编号，{@code watcherId}对象将会是整个操作的唯一KEY，后续删除观察事件的时候也需要通过同一个{@code watcherId}来完成
      */
     int watch(Filter filter, EventListener listener, Event.Type... eventType);
@@ -67,6 +69,7 @@ public interface ModuleEventWatcher {
      * @param watchCb   观察渲染完成回调
      * @param dProgress 清除观察渲染进度报告
      * @param eventType 观察事件类型
+     *
      * @throws Throwable 观察渲染完成回调出错
      */
     void watching(Filter filter,
@@ -88,6 +91,7 @@ public interface ModuleEventWatcher {
      * @param listener  事件监听器
      * @param watchCb   观察渲染完成回调
      * @param eventType 观察事件类型
+     *
      * @throws Throwable 观察渲染完成回调出错
      */
     void watching(Filter filter,

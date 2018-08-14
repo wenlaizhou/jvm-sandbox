@@ -24,9 +24,11 @@ public class NetworkUtils {
             final InetAddress Address = InetAddress.getByName(host);
             socket = new Socket(Address, port);  //建立一个Socket连接
             return socket.isConnected();
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             // ignore
-        } finally {
+        }
+        finally {
             if (null != socket) {
                 IOUtils.closeQuietly(socket);
             }

@@ -34,7 +34,8 @@ public class BaseTestCase {
         final InputStream is = targetClass.getResourceAsStream("/" + SandboxStringUtils.toInternalClassName(targetClass.getName()).concat(".class"));
         try {
             return IOUtils.toByteArray(is);
-        } finally {
+        }
+        finally {
             IOUtils.closeQuietly(is);
         }
     }

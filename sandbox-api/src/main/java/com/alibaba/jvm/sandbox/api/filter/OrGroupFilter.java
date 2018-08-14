@@ -11,9 +11,13 @@ public final class OrGroupFilter implements Filter {
     private final Filter[] filterArray;
 
     private int _access;
+
     private String _javaClassName;
+
     private String _superClassTypeJavaClassName;
+
     private String[] _interfaceTypeJavaClassNameArray;
+
     private String[] _annotationTypeJavaClassNameArray;
 
     /**
@@ -25,7 +29,8 @@ public final class OrGroupFilter implements Filter {
     public OrGroupFilter(final Filter... filterArray) {
         if (null == filterArray) {
             this.filterArray = new Filter[0];
-        } else {
+        }
+        else {
             this.filterArray = filterArray;
         }
     }

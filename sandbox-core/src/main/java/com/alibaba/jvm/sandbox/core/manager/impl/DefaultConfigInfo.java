@@ -114,7 +114,8 @@ public class DefaultConfigInfo implements ConfigInfo {
     public InetSocketAddress getServerAddress() {
         try {
             return JettyCoreServer.getInstance().getLocal();
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             return new InetSocketAddress("0.0.0.0", 0);
         }
     }
@@ -124,10 +125,12 @@ public class DefaultConfigInfo implements ConfigInfo {
         final InputStream is = getClass().getResourceAsStream("/com/alibaba/jvm/sandbox/version");
         try {
             return IOUtils.toString(is);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // impossible
             return "UNKNOW_VERSION";
-        } finally {
+        }
+        finally {
             IOUtils.closeQuietly(is);
         }
     }

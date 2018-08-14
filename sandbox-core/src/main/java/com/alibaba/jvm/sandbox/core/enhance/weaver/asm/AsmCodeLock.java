@@ -111,7 +111,8 @@ public class AsmCodeLock implements CodeLock, Opcodes {
         lock();
         try {
             block.code();
-        } finally {
+        }
+        finally {
             unLock();
         }
     }

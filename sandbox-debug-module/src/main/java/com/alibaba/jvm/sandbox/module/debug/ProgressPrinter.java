@@ -11,8 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 public class ProgressPrinter implements ModuleEventWatcher.Progress {
 
     private final String prefix;
+
     private final int width;
+
     private final Printer printer;
+
     private int total;
 
     public ProgressPrinter(String prefix, int width, Printer printer) {

@@ -50,7 +50,8 @@ public class ModuleJarLoader {
             return new File[]{
                     moduleLibDir
             };
-        } else {
+        }
+        else {
             return convertFileCollectionToFileArray(
                     listFiles(moduleLibDir, new String[]{"jar"}, false)
             );
@@ -95,7 +96,8 @@ public class ModuleJarLoader {
                     final Module module;
                     try {
                         module = moduleIt.next();
-                    } catch (Throwable cause) {
+                    }
+                    catch (Throwable cause) {
                         logger.warn("module SPI new instance failed, ignore this SPI.", cause);
                         continue;
                     }
@@ -128,7 +130,8 @@ public class ModuleJarLoader {
                             );
                         }
                         hasModuleLoadedSuccessFlag = true;
-                    } catch (Throwable cause) {
+                    }
+                    catch (Throwable cause) {
                         logger.warn("load module[id={};class={};] from JAR[file={};] failed, ignore this module.",
                                 uniqueId, classOfModule, moduleJarFile, cause);
                     }
@@ -140,7 +143,8 @@ public class ModuleJarLoader {
                     moduleClassLoader.closeIfPossible();
                 }
 
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("load sandbox module JAR[file={}] failed.", moduleJarFile, cause);
                 if (null != moduleClassLoader) {
                     moduleClassLoader.closeIfPossible();
@@ -160,6 +164,7 @@ public class ModuleJarLoader {
          * 模块文件加载回调
          *
          * @param moduleJarFile 模块文件
+         *
          * @throws Throwable 加载回调异常
          */
         void onLoad(File moduleJarFile) throws Throwable;
@@ -179,6 +184,7 @@ public class ModuleJarLoader {
          * @param module            模块实例
          * @param moduleJarFile     模块所在Jar文件
          * @param moduleClassLoader 负责加载模块的ClassLoader
+         *
          * @throws Throwable 加载回调异常
          */
         void onLoad(final String uniqueId, final Class moduleClass, final Module module, final File moduleJarFile,

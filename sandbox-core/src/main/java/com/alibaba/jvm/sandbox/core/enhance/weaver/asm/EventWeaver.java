@@ -45,8 +45,11 @@ class CallAsmCodeLock extends AsmCodeLock {
 class AsmTryCatchBlock {
 
     protected final Label start;
+
     protected final Label end;
+
     protected final Label handler;
+
     protected final String type;
 
     AsmTryCatchBlock(Label start, Label end, Label handler, String type) {
@@ -67,14 +70,21 @@ public class EventWeaver extends ClassVisitor implements Opcodes, AsmTypes, AsmM
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final int targetClassLoaderObjectID;
+
     private final int listenerId;
+
     private final String targetClassInternalName;
+
     private final String targetJavaClassName;
+
     private final Type targetClassAsmType;
+
     private final Filter filter;
+
     private final AtomicBoolean reWriteMark;
 
     private final String uniqueCodePrefix;
+
     private final Set<String> affectMethodUniqueSet;
 
     // 是否支持LINE_EVENT
@@ -84,8 +94,11 @@ public class EventWeaver extends ClassVisitor implements Opcodes, AsmTypes, AsmM
     // 是否支持CALL_BEFORE/CALL_RETURN/CALL_THROWS事件
     // CALL系列事件需要对Class做特殊的增强，所以需要在这里做特殊的判断
     private final boolean hasCallThrows;
+
     private final boolean hasCallBefore;
+
     private final boolean hasCallReturn;
+
     private final boolean isCallEnable;
 
     public EventWeaver(final int api,
@@ -197,6 +210,7 @@ public class EventWeaver extends ClassVisitor implements Opcodes, AsmTypes, AsmM
         return new ReWriteMethod(api, new JSRInlinerAdapter(mv, access, name, desc, signature, exceptions), access, name, desc) {
 
             private final Label beginLabel = new Label();
+
             private final Label endLabel = new Label();
 
             // 用来标记一个方法是否已经进入
@@ -246,30 +260,30 @@ public class EventWeaver extends ClassVisitor implements Opcodes, AsmTypes, AsmM
                 // 这里修改为
                 push(targetClassLoaderObjectID);
 
-//                if (this.isStaticMethod()) {
-//
-////                    // fast enhance
-////                    if (GlobalOptions.isEnableFastEnhance) {
-////                        visitLdcInsn(Type.getType(String.format("L%s;", internalClassName)));
-////                        visitMethodInsn(INVOKEVIRTUAL, "java/lang/Class", "getClassLoader", "()Ljava/lang/ClassLoader;", false);
-////                    }
-//
-//                    // normal enhance
-////                    else {
-//
-//                    // 这里不得不用性能极差的Class.forName()来完成类的获取,因为有可能当前这个静态方法在执行的时候
-//                    // 当前类并没有完成实例化,会引起JVM对class文件的合法性校验失败
-//                    // 未来我可能会在这一块考虑性能优化,但对于当前而言,功能远远重要于性能,也就不打算折腾这么复杂了
-//                    visitLdcInsn(targetJavaClassName);
-//                    invokeStatic(ASM_TYPE_CLASS, ASM_METHOD_Class$forName);
-//                    invokeVirtual(ASM_TYPE_CLASS, ASM_METHOD_Class$getClassLoader);
-////                    }
-//
-//                } else {
-//                    loadThis();
-//                    invokeVirtual(ASM_TYPE_OBJECT, ASM_METHOD_Object$getClass);
-//                    invokeVirtual(ASM_TYPE_CLASS, ASM_METHOD_Class$getClassLoader);
-//                }
+                //                if (this.isStaticMethod()) {
+                //
+                ////                    // fast enhance
+                ////                    if (GlobalOptions.isEnableFastEnhance) {
+                ////                        visitLdcInsn(Type.getType(String.format("L%s;", internalClassName)));
+                ////                        visitMethodInsn(INVOKEVIRTUAL, "java/lang/Class", "getClassLoader", "()Ljava/lang/ClassLoader;", false);
+                ////                    }
+                //
+                //                    // normal enhance
+                ////                    else {
+                //
+                //                    // 这里不得不用性能极差的Class.forName()来完成类的获取,因为有可能当前这个静态方法在执行的时候
+                //                    // 当前类并没有完成实例化,会引起JVM对class文件的合法性校验失败
+                //                    // 未来我可能会在这一块考虑性能优化,但对于当前而言,功能远远重要于性能,也就不打算折腾这么复杂了
+                //                    visitLdcInsn(targetJavaClassName);
+                //                    invokeStatic(ASM_TYPE_CLASS, ASM_METHOD_Class$forName);
+                //                    invokeVirtual(ASM_TYPE_CLASS, ASM_METHOD_Class$getClassLoader);
+                ////                    }
+                //
+                //                } else {
+                //                    loadThis();
+                //                    invokeVirtual(ASM_TYPE_OBJECT, ASM_METHOD_Object$getClass);
+                //                    invokeVirtual(ASM_TYPE_CLASS, ASM_METHOD_Class$getClassLoader);
+                //                }
 
             }
 

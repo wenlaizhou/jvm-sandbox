@@ -15,7 +15,7 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="SANDBOX-FILE-APPENDER"/>
+        <appender-ref ref="SANDBOX-FILE-APPENDER" />
     </root>
 
 </configuration>

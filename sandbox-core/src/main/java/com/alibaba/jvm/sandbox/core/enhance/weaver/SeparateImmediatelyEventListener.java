@@ -26,7 +26,9 @@ public class SeparateImmediatelyEventListener implements EventListener {
     };
 
     private final EventListener listener;
+
     private final EventPool eventPool;
+
     private final Event.Type[] eventTypeArray;
 
     public SeparateImmediatelyEventListener(final Event.Type[] eventTypeArray,
@@ -72,7 +74,8 @@ public class SeparateImmediatelyEventListener implements EventListener {
             // 处理事件
             listener.onEvent(replaceEvent);
 
-        } catch (ProcessControlException pce) {
+        }
+        catch (ProcessControlException pce) {
 
             switch (pce.getState()) {
                 case RETURN_IMMEDIATELY: {
@@ -87,7 +90,8 @@ public class SeparateImmediatelyEventListener implements EventListener {
 
             throw pce;
 
-        } finally {
+        }
+        finally {
             if (replaceEvent instanceof ImmediatelyReturnEvent
                     || replaceEvent instanceof ImmediatelyThrowsEvent) {
                 eventPool.returnEvent(replaceEvent);

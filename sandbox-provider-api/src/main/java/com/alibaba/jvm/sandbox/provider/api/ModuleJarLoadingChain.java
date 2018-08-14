@@ -18,6 +18,7 @@ public interface ModuleJarLoadingChain {
      * </p>
      *
      * @param moduleJarFile 期待被加载模块Jar文件
+     *
      * @throws Throwable 模块文件加载异常
      */
     void loading(File moduleJarFile) throws Throwable;

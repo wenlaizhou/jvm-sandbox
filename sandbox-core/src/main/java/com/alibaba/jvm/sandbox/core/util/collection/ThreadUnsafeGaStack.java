@@ -14,9 +14,11 @@ import static java.lang.System.arraycopy;
 public class ThreadUnsafeGaStack<E> implements GaStack<E> {
 
     private final static int EMPTY_INDEX = -1;
+
     private final static int DEFAULT_STACK_DEEP = 12;
 
     private Object[] elementArray;
+
     private int current = EMPTY_INDEX;
 
     public ThreadUnsafeGaStack() {

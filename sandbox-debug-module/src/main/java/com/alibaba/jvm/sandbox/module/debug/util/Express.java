@@ -44,7 +44,9 @@ public interface Express {
      * 根据表达式获取值
      *
      * @param express 表达式
+     *
      * @return 表达式运算后的值
+     *
      * @throws ExpressException 表达式运算出错
      */
     Object get(String express) throws ExpressException;
@@ -53,7 +55,9 @@ public interface Express {
      * 根据表达式判断是与否
      *
      * @param express 表达式
+     *
      * @return 表达式运算后的布尔值
+     *
      * @throws ExpressException 表达式运算出错
      */
     boolean is(String express) throws ExpressException;
@@ -62,6 +66,7 @@ public interface Express {
      * 绑定对象
      *
      * @param object 待绑定对象
+     *
      * @return this
      */
     Express bind(Object object);
@@ -71,6 +76,7 @@ public interface Express {
      *
      * @param name  变量名
      * @param value 变量值
+     *
      * @return this
      */
     Express bind(String name, Object value);
@@ -99,6 +105,7 @@ public interface Express {
          * 构造表达式执行类
          *
          * @param object 执行对象
+         *
          * @return 返回表达式实现
          */
         public static Express newExpress(Object object) {
@@ -111,6 +118,7 @@ public interface Express {
     class OgnlExpress implements Express {
 
         private Object bindObject;
+
         private final OgnlContext context = new OgnlContext();
 
         @Override
@@ -118,7 +126,8 @@ public interface Express {
             try {
                 context.setMemberAccess(new DefaultMemberAccess(true));
                 return Ognl.getValue(express, context, bindObject);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new ExpressException(express, e);
             }
         }
@@ -130,7 +139,8 @@ public interface Express {
                 return null != ret
                         && ret instanceof Boolean
                         && (Boolean) ret;
-            } catch (Throwable t) {
+            }
+            catch (Throwable t) {
                 return false;
             }
         }

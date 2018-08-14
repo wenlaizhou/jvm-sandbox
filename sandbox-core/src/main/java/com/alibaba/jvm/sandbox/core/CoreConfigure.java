@@ -23,29 +23,45 @@ import java.util.Properties;
  */
 public class CoreConfigure {
 
-    private static final String KEY_NAMESPACE="namespace";
-    private static final String DEFAULT_VAL_NAMESPACE="default";
+    private static final String KEY_NAMESPACE = "namespace";
+
+    private static final String DEFAULT_VAL_NAMESPACE = "default";
 
     private static final String KEY_SANDBOX_HOME = "sandbox_home";
+
     private static final String KEY_LAUNCH_MODE = "mode";
+
     private static final String KEY_SERVER_IP = "server.ip";
+
     private static final String KEY_SERVER_PORT = "server.port";
 
     private static final String KEY_SYSTEM_MODULE_LIB_PATH = "system_module";
+
     private static final String KEY_USER_MODULE_LIB_PATH = "user_module";
+
     private static final String KEY_PROVIDER_LIB_PATH = "provider";
+
     private static final String KEY_CFG_LIB_PATH = "cfg";
+
     private static final String VAL_LAUNCH_MODE_AGENT = "agent";
+
     private static final String VAL_LAUNCH_MODE_ATTACH = "attach";
+
     private static final String KEY_EVENT_POOL_ENABLE = "event.pool.enable";
 
     // ------------------------------------- 事件池配置 -------------------------------------
     private static final String KEY_EVENT_POOL_MAX_TOTAL = "event.pool.max.total";
+
     private static final String KEY_EVENT_POOL_MIN_IDLE_PER_EVENT = "event.pool.min.idle.per.event";
+
     private static final int DEFAULT_VAL_EVENT_POOL_MIN_IDLE_PER_EVENT = 50;
+
     private static final String KEY_EVENT_POOL_MAX_IDLE_PER_EVENT = "event.pool.max.idle.per.event";
+
     private static final int DEFAULT_VAL_EVENT_POOL_MAX_IDLE_PER_EVENT = 100;
+
     private static final String KEY_EVENT_POOL_MAX_TOTAL_PER_EVENT = "event.pool.max.total.per.event";
+
     private static final int DEFAULT_VAL_EVENT_POOL_MAX_TOTAL_PER_EVENT = 2000;
 
     private static final String KEY_UNSAFE_ENABLE = "unsafe.enable";
@@ -80,9 +96,11 @@ public class CoreConfigure {
         try {
             is = FileUtils.openInputStream(new File(propertiesFilePath));
             properties.load(is);
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             // cause.printStackTrace(System.err);
-        } finally {
+        }
+        finally {
             IOUtils.closeQuietly(is);
         }
         return properties;
@@ -110,6 +128,7 @@ public class CoreConfigure {
 
     /**
      * 获取容器的命名空间
+     *
      * @return 容器的命名空间
      */
     public String getNamespace() {
@@ -189,7 +208,8 @@ public class CoreConfigure {
     public File[] getUserModuleLibFilesWithCache() {
         if (null != GET_USER_MODULE_LIB_FILES_CACHE) {
             return GET_USER_MODULE_LIB_FILES_CACHE;
-        } else {
+        }
+        else {
             return getUserModuleLibFiles();
         }
     }

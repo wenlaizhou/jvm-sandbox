@@ -22,12 +22,19 @@ import java.util.Set;
 public class SandboxClassFileTransformer implements ClassFileTransformer {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final int watchId;
+
     private final String uniqueId;
+
     private final int listenerId;
+
     private final Filter filter;
+
     private final EventListener eventListener;
+
     private final boolean isEnableUnsafe;
+
     private final Event.Type[] eventTypeArray;
 
     // 影响类去重码集合
@@ -88,7 +95,8 @@ public class SandboxClassFileTransformer implements ClassFileTransformer {
 
             logger.info("enhancer toByteCode success, module[id={}];class={};loader={};", uniqueId, javaClassName, loader);
             return toByteCodeArray;
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             logger.warn("enhancer toByteCode failed, module[id={}];class={};loader={};", uniqueId, javaClassName, loader, cause);
             // throw new IllegalClassFormatException(cause.getMessage());
             return null;

@@ -6,6 +6,7 @@ package com.alibaba.jvm.sandbox.api.event;
  * @author luanjia@taobao.com
  */
 public class CallReturnEvent extends InvokeEvent {
+
     /**
      * 构造调用事件
      *

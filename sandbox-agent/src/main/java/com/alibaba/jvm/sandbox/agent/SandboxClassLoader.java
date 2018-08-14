@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 class SandboxClassLoader extends URLClassLoader {
 
     private final String namespace;
+
     private final String path;
 
     SandboxClassLoader(final String namespace,
@@ -27,10 +28,10 @@ class SandboxClassLoader extends URLClassLoader {
             return loadedClass;
         }
 
-//        // 优先从parent（SystemClassLoader）里加载系统类，避免抛出ClassNotFoundException
-//        if(name != null && (name.startsWith("sun.") || name.startsWith("java."))) {
-//            return super.loadClass(name, resolve);
-//        }
+        //        // 优先从parent（SystemClassLoader）里加载系统类，避免抛出ClassNotFoundException
+        //        if(name != null && (name.startsWith("sun.") || name.startsWith("java."))) {
+        //            return super.loadClass(name, resolve);
+        //        }
 
         try {
             Class<?> aClass = findClass(name);
@@ -38,7 +39,8 @@ class SandboxClassLoader extends URLClassLoader {
                 resolveClass(aClass);
             }
             return aClass;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return super.loadClass(name, resolve);
         }
     }

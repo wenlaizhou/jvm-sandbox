@@ -13,6 +13,7 @@ public interface WebSocketConnection {
      * 发送文本数据
      *
      * @param data 文本信息
+     *
      * @throws IOException 发送出错
      */
     void write(String data) throws IOException;

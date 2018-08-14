@@ -11,6 +11,7 @@ import com.alibaba.jvm.sandbox.util.SandboxStringUtils;
 public class NamePatternFilter implements Filter {
 
     private final String classNamePattern;
+
     private final String methodNamePattern;
 
     public NamePatternFilter(String classNamePattern, String methodNamePattern) {

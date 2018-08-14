@@ -15,6 +15,7 @@ public interface WebSocketAcceptor {
      *
      * @param req      http req
      * @param protocol websocket's protocol
+     *
      * @return WebSocketConnectionListener
      */
     WebSocketConnectionListener onAccept(HttpServletRequest req, String protocol);

@@ -63,7 +63,8 @@ public class GaStringUtils {
         final StringBuilder buf = new StringBuilder();
         if (null == obj) {
             buf.append("null");
-        } else {
+        }
+        else {
 
             final Class<?> clazz = obj.getClass();
             final String className = clazz.getSimpleName();
@@ -73,7 +74,7 @@ public class GaStringUtils {
                     || Long.class.isInstance(obj)
                     || Float.class.isInstance(obj)
                     || Double.class.isInstance(obj)
-//                    || Character.class.isInstance(obj)
+                    //                    || Character.class.isInstance(obj)
                     || Short.class.isInstance(obj)
                     || Byte.class.isInstance(obj)
                     || Boolean.class.isInstance(obj)) {
@@ -166,7 +167,8 @@ public class GaStringUtils {
                             map.isEmpty(),
                             map.size()));
 
-                } else {
+                }
+                else {
 
                     final StringBuilder bufOfMap = new StringBuilder();
                     bufOfMap.append(format("@%s[", className));
@@ -456,16 +458,17 @@ public class GaStringUtils {
 
                 if (!isExpand(deep, expand)) {
                     buf.append(format("@%s[%s]", className, obj));
-                } else {
+                }
+                else {
 
                     final Throwable throwable = (Throwable) obj;
                     final StringWriter sw = new StringWriter();
                     final PrintWriter pw = new PrintWriter(sw);
                     throwable.printStackTrace(pw);
 
-//                    buf.append(format("@%s[\n",className));
+                    //                    buf.append(format("@%s[\n",className));
                     buf.append(sw.toString());
-//                    buf.append("]");
+                    //                    buf.append("]");
 
                 }
 
@@ -481,7 +484,8 @@ public class GaStringUtils {
 
                 if (!isExpand(deep, expand)) {
                     buf.append(format("@%s[%s]", className, obj));
-                } else {
+                }
+                else {
 
                     final StringBuilder bufOfObject = new StringBuilder();
                     bufOfObject.append(format("@%s[", className));
@@ -502,7 +506,8 @@ public class GaStringUtils {
                                         .append(toString(value, deep + 1, expand).trim())
                                         .append(",");
 
-                            } catch (Throwable t) {
+                            }
+                            catch (Throwable t) {
                                 //
                             }
 
@@ -530,7 +535,8 @@ public class GaStringUtils {
                 }
                 tabBuf.append(line).append("\n");
             }
-        } finally {
+        }
+        finally {
             if (null != scanner) {
                 scanner.close();
             }
@@ -547,6 +553,7 @@ public class GaStringUtils {
      * 是否根节点
      *
      * @param deep 深度
+     *
      * @return true:根节点 / false:非根节点
      */
     private static boolean isRoot(int deep) {
@@ -559,6 +566,7 @@ public class GaStringUtils {
      *
      * @param deep   当前节点的深度
      * @param expand 展开极限
+     *
      * @return true:当前节点需要展开 / false:当前节点不需要展开
      */
     private static boolean isExpand(int deep, int expand) {

@@ -22,7 +22,8 @@ public class TestClassLoader extends ClassLoader {
                 resolveClass(aClass);
             }
             return aClass;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return super.loadClass(name, resolve);
         }
     }

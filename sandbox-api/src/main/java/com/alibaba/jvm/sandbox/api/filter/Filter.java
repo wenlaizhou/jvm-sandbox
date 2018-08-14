@@ -15,6 +15,7 @@ public interface Filter {
      * @param superClassTypeJavaClassName      父类(全路径名称)
      * @param interfaceTypeJavaClassNameArray  接口类型名称数组
      * @param annotationTypeJavaClassNameArray 标注原数据类型名称数组（注意，此参数尚未支持，只是预留一个API占位）
+     *
      * @return true:匹配;false:不匹配;
      */
     boolean doClassFilter(int access,
@@ -37,6 +38,7 @@ public interface Filter {
      * @param parameterTypeJavaClassNameArray  参数类型名称数组
      * @param throwsTypeJavaClassNameArray     声明异常类型名称数组
      * @param annotationTypeJavaClassNameArray 标注原数据类型名称数组（注意，此参数尚未支持，只是预留一个API占位）
+     *
      * @return true:匹配;false:不匹配
      */
     boolean doMethodFilter(int access,

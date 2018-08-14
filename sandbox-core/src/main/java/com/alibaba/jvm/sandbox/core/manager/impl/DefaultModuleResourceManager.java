@@ -30,7 +30,8 @@ public class DefaultModuleResourceManager implements ModuleResourceManager, Modu
         final List<WeakResource<?>> moduleResourceList;
         if (moduleResourceListMapping.containsKey(uniqueId)) {
             moduleResourceList = moduleResourceListMapping.get(uniqueId);
-        } else {
+        }
+        else {
             moduleResourceListMapping.put(uniqueId, moduleResourceList
                     = new ArrayList<WeakResource<?>>());
         }
@@ -91,7 +92,8 @@ public class DefaultModuleResourceManager implements ModuleResourceManager, Modu
         if (CollectionUtils.isEmpty(moduleResourceList)) {
             logger.debug("module[id={};] mapping resources was empty.", uniqueId);
             return true;
-        } else {
+        }
+        else {
             logger.info("module[id={};] is unloading, will release {} resources.", uniqueId, moduleResourceList.size());
         }
 
@@ -103,7 +105,8 @@ public class DefaultModuleResourceManager implements ModuleResourceManager, Modu
             try {
                 resource.release();
                 logger.info("module[id={};] is unloading, resource={} was closed.", uniqueId, resource);
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("module[id={};] is unloading, resource={} closing failed.",
                         uniqueId, resource, cause);
             }

@@ -15,6 +15,7 @@ import static com.alibaba.jvm.sandbox.core.util.SandboxReflectUtils.unCaughtGetC
 public interface AsmMethods {
 
     class InnerHelper {
+
         private InnerHelper() {
         }
 

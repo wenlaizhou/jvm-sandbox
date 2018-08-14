@@ -32,8 +32,11 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Instrumentation inst;
+
     private final LoadedClassDataSource classDataSource;
+
     private final CoreModule coreModule;
+
     private final boolean isEnableUnsafe;
 
     // 观察ID序列生成器
@@ -56,7 +59,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
         if (null != progress) {
             try {
                 progress.begin(total);
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("begin progress failed.", cause);
             }
         }
@@ -67,7 +71,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
         if (null != progress) {
             try {
                 progress.finish(cCnt, mCnt);
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("finish progress failed.", cause);
             }
         }
@@ -102,7 +107,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
             try {
                 inst.retransformClasses(waitingReTransformClassSet.toArray(new Class[waitingReTransformClassSet.size()]));
                 logger.info("batch reTransform classes, watchId={};total={};", watchId, waitingReTransformClassSet.size());
-            } catch (Throwable e) {
+            }
+            catch (Throwable e) {
                 logger.warn("batch reTransform class failed, watchId={};", watchId, e);
                 batchReTransformSuccess = false;
             }
@@ -121,7 +127,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
                     if (null != progress) {
                         try {
                             progress.progressOnSuccess(waitingReTransformClass, index);
-                        } catch (Throwable cause) {
+                        }
+                        catch (Throwable cause) {
                             // 在进行进度汇报的过程中抛出异常,直接进行忽略,因为不影响形变的主体流程
                             // 仅仅只是一个汇报作用而已
                             logger.warn("report progressOnSuccess occur exception, watchId={};waitingReTransformClass={};index={};total={};",
@@ -130,12 +137,14 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
                     }
                     inst.retransformClasses(waitingReTransformClass);
                     logger.debug("single reTransform class={};index={};total={};", waitingReTransformClass, index - 1, total);
-                } catch (Throwable causeOfReTransform) {
+                }
+                catch (Throwable causeOfReTransform) {
                     logger.warn("reTransformClass={}; failed, ignore this class.", waitingReTransformClass, causeOfReTransform);
                     if (null != progress) {
                         try {
                             progress.progressOnFailed(waitingReTransformClass, index, causeOfReTransform);
-                        } catch (Throwable cause) {
+                        }
+                        catch (Throwable cause) {
                             logger.warn("report progressOnFailed occur exception, watchId={};waitingReTransformClass={};index={};total={};cause={};",
                                     watchId, waitingReTransformClass, index - 1, total, getCauseMessage(causeOfReTransform), cause);
                         }
@@ -209,7 +218,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
                         .active(listenerId, listener, eventType);
             }
 
-        } finally {
+        }
+        finally {
             finishProgress(progress, cCnt, mCnt);
         }
 
@@ -263,7 +273,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
         try {
             // 应用JVM
             reTransformClasses(watcherId, waitingReTransformClassSet, progress);
-        } finally {
+        }
+        finally {
             finishProgress(progress, cCnt, mCnt);
         }
     }
@@ -283,7 +294,8 @@ public class DefaultModuleEventWatcher implements ModuleEventWatcher, ModuleLife
         final int watchId = watch(filter, listener, wProgress, eventType);
         try {
             watchCb.watchCompleted();
-        } finally {
+        }
+        finally {
             delete(watchId, dProgress);
         }
     }

@@ -88,7 +88,9 @@ public class EventListenerHandlers {
      * @param invokeId   调用ID
      * @param event      调用事件
      * @param wrap       事件处理器封装
+     *
      * @return 处理返回结果
+     *
      * @throws Throwable 当出现未知异常时,且事件处理器为中断流程事件时抛出
      */
     private Spy.Ret handleEvent(final int listenerId,
@@ -136,13 +138,15 @@ public class EventListenerHandlers {
                                 replaceReturnEvent,
                                 wrap
                         );
-                    } finally {
+                    }
+                    finally {
                         eventPool.returnEvent(replaceReturnEvent);
                     }
 
                     if (ret.state == Spy.Ret.RET_STATE_NONE) {
                         return Spy.Ret.newInstanceForReturn(pce.getRespond());
-                    } else {
+                    }
+                    else {
                         // 如果不是,则返回最新的处理结果
                         return ret;
                     }
@@ -169,17 +173,20 @@ public class EventListenerHandlers {
                                     replaceThrowsEvent,
                                     wrap
                             );
-                        } finally {
+                        }
+                        finally {
                             eventPool.returnEvent(replaceThrowsEvent);
                         }
 
                         if (ret.state == Spy.Ret.RET_STATE_NONE) {
                             return Spy.Ret.newInstanceForThrows(throwable);
-                        } else {
+                        }
+                        else {
                             // 如果不是,则返回最新的处理结果
                             return ret;
                         }
-                    } else {
+                    }
+                    else {
                         return Spy.Ret.newInstanceForThrows(throwable);
                     }
 
@@ -226,7 +233,9 @@ public class EventListenerHandlers {
 
 
     private final WeakHashMap<Class, Method> spyNewInstanceForNoneMethodCache = new WeakHashMap<Class, Method>();
+
     private final WeakHashMap<Class, Method> spyNewInstanceForReturnMethodCache = new WeakHashMap<Class, Method>();
+
     private final WeakHashMap<Class, Method> spyNewInstanceForThrowsMethodCache = new WeakHashMap<Class, Method>();
 
     // 转换当前的Spy.Ret到目标类所在ClassLoader的Spy.Ret
@@ -247,7 +256,8 @@ public class EventListenerHandlers {
                 final Method method;
                 if (spyNewInstanceForNoneMethodCache.containsKey(spyRetClassInTargetClassLoader)) {
                     method = spyNewInstanceForNoneMethodCache.get(spyRetClassInTargetClassLoader);
-                } else {
+                }
+                else {
                     method = unCaughtGetClassDeclaredJavaMethod(spyRetClassInTargetClassLoader, "newInstanceForNone");
                     spyNewInstanceForNoneMethodCache.put(spyRetClassInTargetClassLoader, method);
                 }
@@ -258,7 +268,8 @@ public class EventListenerHandlers {
                 final Method method;
                 if (spyNewInstanceForReturnMethodCache.containsKey(spyRetClassInTargetClassLoader)) {
                     method = spyNewInstanceForReturnMethodCache.get(spyRetClassInTargetClassLoader);
-                } else {
+                }
+                else {
                     method = unCaughtGetClassDeclaredJavaMethod(spyRetClassInTargetClassLoader, "newInstanceForReturn", Object.class);
                     spyNewInstanceForReturnMethodCache.put(spyRetClassInTargetClassLoader, method);
                 }
@@ -269,7 +280,8 @@ public class EventListenerHandlers {
                 final Method method;
                 if (spyNewInstanceForThrowsMethodCache.containsKey(spyRetClassInTargetClassLoader)) {
                     method = spyNewInstanceForThrowsMethodCache.get(spyRetClassInTargetClassLoader);
-                } else {
+                }
+                else {
                     method = unCaughtGetClassDeclaredJavaMethod(spyRetClassInTargetClassLoader, "newInstanceForThrows", Throwable.class);
                     spyNewInstanceForThrowsMethodCache.put(spyRetClassInTargetClassLoader, method);
                 }
@@ -328,7 +340,8 @@ public class EventListenerHandlers {
         );
         try {
             return handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
     }
@@ -364,7 +377,8 @@ public class EventListenerHandlers {
 
         try {
             return handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
 
@@ -426,7 +440,8 @@ public class EventListenerHandlers {
         final Event event = eventPool.borrowLineEvent(processId, invokeId, lineNumber);
         try {
             handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
 
@@ -461,7 +476,8 @@ public class EventListenerHandlers {
         final Event event = eventPool.borrowCallBeforeEvent(processId, invokeId, lineNumber, owner, name, desc);
         try {
             handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
 
@@ -486,7 +502,8 @@ public class EventListenerHandlers {
         final Event event = eventPool.borrowCallReturnEvent(processId, invokeId);
         try {
             handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
 
@@ -511,7 +528,8 @@ public class EventListenerHandlers {
         final Event event = eventPool.borrowCallThrowsEvent(processId, invokeId, throwException);
         try {
             handleEvent(listenerId, processId, invokeId, event, wrap);
-        } finally {
+        }
+        finally {
             eventPool.returnEvent(event);
         }
     }
@@ -522,6 +540,7 @@ public class EventListenerHandlers {
     private final class EventListenerWrap {
 
         private final EventListener listener;
+
         private final ThreadLocal<GaStack<Integer>> processStackRef = new ThreadLocal<GaStack<Integer>>() {
             @Override
             protected GaStack<Integer/*INVOKE_ID*/> initialValue() {

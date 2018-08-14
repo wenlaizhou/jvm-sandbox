@@ -28,6 +28,7 @@ public class SimpleDateFormatHolder extends ThreadLocal<SimpleDateFormat> {
      * 格式化日期
      *
      * @param date 日期
+     *
      * @return 格式化后字符串
      */
     public String format(Date date) {
@@ -39,6 +40,7 @@ public class SimpleDateFormatHolder extends ThreadLocal<SimpleDateFormat> {
      * 格式化日期
      *
      * @param gmt gmt
+     *
      * @return 格式化后字符串
      */
     public String format(long gmt) {

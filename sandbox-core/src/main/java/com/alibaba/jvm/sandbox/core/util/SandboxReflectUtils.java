@@ -19,6 +19,7 @@ public class SandboxReflectUtils {
      * @param clazz               类
      * @param name                方法名
      * @param parameterClassArray 参数类型数组
+     *
      * @return Java方法
      */
     public static Method unCaughtGetClassDeclaredJavaMethod(final Class<?> clazz,
@@ -26,7 +27,8 @@ public class SandboxReflectUtils {
                                                             final Class<?>... parameterClassArray) {
         try {
             return clazz.getDeclaredMethod(name, parameterClassArray);
-        } catch (NoSuchMethodException e) {
+        }
+        catch (NoSuchMethodException e) {
             throw new UnCaughtException(e);
         }
     }
@@ -38,9 +40,11 @@ public class SandboxReflectUtils {
         try {
             method.setAccessible(true);
             return (T) method.invoke(target, parameterArray);
-        } catch (Throwable e) {
+        }
+        catch (Throwable e) {
             throw new UnCaughtException(e);
-        } finally {
+        }
+        finally {
             method.setAccessible(isAccessible);
         }
     }
@@ -49,7 +53,8 @@ public class SandboxReflectUtils {
                                                           final String name) {
         try {
             return clazz.getDeclaredField(name);
-        } catch (NoSuchFieldException e) {
+        }
+        catch (NoSuchFieldException e) {
             throw new UnCaughtException(e);
         }
     }
@@ -62,9 +67,11 @@ public class SandboxReflectUtils {
         try {
             field.setAccessible(true);
             return (T) field.get(target);
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e) {
             throw new UnCaughtException(e);
-        } finally {
+        }
+        finally {
             field.setAccessible(isAccessible);
         }
     }
@@ -78,9 +85,11 @@ public class SandboxReflectUtils {
         try {
             field.setAccessible(true);
             field.set(target, value);
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e) {
             throw new UnCaughtException(e);
-        } finally {
+        }
+        finally {
             field.setAccessible(isAccessible);
         }
     }
@@ -91,7 +100,9 @@ public class SandboxReflectUtils {
      * @param loader         目标ClassLoader
      * @param javaClassName  类名称
      * @param classByteArray 类字节码数组
+     *
      * @return 定义的类
+     *
      * @throws InvocationTargetException 目标方法调用发生异常
      * @throws IllegalAccessException    目标方法不可进入
      */
@@ -113,7 +124,8 @@ public class SandboxReflectUtils {
                         0,
                         classByteArray.length
                 );
-            } finally {
+            }
+            finally {
                 defineClassMethod.setAccessible(acc);
             }
         }

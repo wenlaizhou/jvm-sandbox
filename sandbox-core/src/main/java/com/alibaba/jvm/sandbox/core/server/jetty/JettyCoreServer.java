@@ -43,7 +43,9 @@ import static org.eclipse.jetty.servlet.ServletContextHandler.SESSIONS;
 public class JettyCoreServer implements CoreServer {
 
     private static volatile CoreServer coreServer;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     // 初始化器
     private final Initializer initializer = new Initializer(true);
 
@@ -51,6 +53,7 @@ public class JettyCoreServer implements CoreServer {
     private Server httpServer;
 
     private ModuleResourceManager moduleResourceManager;
+
     private CoreModuleManager coreModuleManager;
 
     /**
@@ -83,10 +86,10 @@ public class JettyCoreServer implements CoreServer {
 
                         // stop http server
                         httpServer.stop();
-//                        while (!httpServer.isStopped()) {
-//                            logger.info("server is stopping....");
-//                            Thread.sleep(1000);
-//                        }
+                        //                        while (!httpServer.isStopped()) {
+                        //                            logger.info("server is stopping....");
+                        //                            Thread.sleep(1000);
+                        //                        }
                         logger.info("server was stop.");
 
                     }
@@ -97,7 +100,8 @@ public class JettyCoreServer implements CoreServer {
             httpServer.destroy();
             logger.info("server was destroyed.");
 
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             logger.debug("unBind failed.", cause);
             throw new IOException("unBind failed.", cause);
         }
@@ -160,7 +164,8 @@ public class JettyCoreServer implements CoreServer {
         try {
             is = new FileInputStream(new File(cfg.getCfgLibPath() + File.separator + "sandbox-logback.xml"));
             configurator.doConfigure(is);
-        } finally {
+        }
+        finally {
             IOUtils.closeQuietly(is);
         }
     }
@@ -235,7 +240,8 @@ public class JettyCoreServer implements CoreServer {
 
                 }
             });
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             logger.warn("server bind failed. cfg={}", cfg, cause);
             throw new IOException(
                     String.format("server bind to %s:%s failed.", cfg.getServerIp(), cfg.getServerPort()),
@@ -251,7 +257,8 @@ public class JettyCoreServer implements CoreServer {
         if (isBind()) {
             try {
                 unbind();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 logger.warn("nnBind failed when destroy.", e);
             }
         }

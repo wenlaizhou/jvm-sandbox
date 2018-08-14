@@ -15,6 +15,7 @@ import java.util.LinkedList;
 public class DefaultModuleLifeCycleEventBus implements ModuleLifeCycleEventBus {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final LinkedList<ModuleLifeCycleEventListener> moduleLifeCycleEventListeners
             = new LinkedList<ModuleLifeCycleEventListener>();
 
@@ -37,7 +38,8 @@ public class DefaultModuleLifeCycleEventBus implements ModuleLifeCycleEventBus {
                     listenerIt.remove();
                     logger.debug("{} give up continue listening", moduleLifeCycleEventListener);
                 }
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("fire ModuleLifeCycleEventListener[listener={};] failed, event={};",
                         moduleLifeCycleEventListener, event, cause);
             }
@@ -47,7 +49,8 @@ public class DefaultModuleLifeCycleEventBus implements ModuleLifeCycleEventBus {
         for (final ModuleLifeCycleEventListener moduleLifeCycleEventListener : moduleLifeCycleEventListeners) {
             try {
                 moduleLifeCycleEventListener.onFire(coreModule, event);
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("fire ModuleLifeCycleEventListener[listener={};] failed, event={};",
                         moduleLifeCycleEventListener, event, cause);
             }

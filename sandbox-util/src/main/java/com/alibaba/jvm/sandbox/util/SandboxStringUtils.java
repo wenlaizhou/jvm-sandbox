@@ -12,6 +12,7 @@ public class SandboxStringUtils {
      * java's classname to internal's classname
      *
      * @param javaClassName java's classname
+     *
      * @return internal's classname
      */
     public static String toInternalClassName(String javaClassName) {
@@ -23,6 +24,7 @@ public class SandboxStringUtils {
      * java/lang/String to java.lang.String
      *
      * @param internalClassName internal's classname
+     *
      * @return java's classname
      */
     public static String toJavaClassName(String internalClassName) {
@@ -44,6 +46,7 @@ public class SandboxStringUtils {
      * 获取异常的原因描述
      *
      * @param t 异常
+     *
      * @return 异常原因
      */
     public static String getCauseMessage(Throwable t) {
@@ -59,6 +62,7 @@ public class SandboxStringUtils {
      *
      * @param string  目标字符串
      * @param pattern 匹配模版
+     *
      * @return true:目标字符串符合匹配模版;false:目标字符串不符合匹配模版
      */
     public static boolean matching(String string, String pattern) {
@@ -129,7 +133,8 @@ public class SandboxStringUtils {
                     }
                     return false;
                 }
-            } else {
+            }
+            else {
                 nextIsNotWildcard = false;
             }
 

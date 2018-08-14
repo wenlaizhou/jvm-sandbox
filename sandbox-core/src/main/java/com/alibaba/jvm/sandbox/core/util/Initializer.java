@@ -12,8 +12,10 @@ public class Initializer {
 
     // 是否循环状态
     private final boolean isCycleState;
+
     // 读写锁
     private final ReadWriteLock rwLock = new ReentrantReadWriteLock(true);
+
     // 初始化状态
     private volatile State state = State.NEW;
 
@@ -69,7 +71,8 @@ public class Initializer {
         rwLock.readLock().lock();
         try {
             return state;
-        } finally {
+        }
+        finally {
             rwLock.readLock().unlock();
         }
     }
@@ -78,6 +81,7 @@ public class Initializer {
      * 初始化过程
      *
      * @param processor 过程回调
+     *
      * @throws Throwable 初始化异常
      */
     public final void initProcess(final Processor processor) throws Throwable {
@@ -91,7 +95,8 @@ public class Initializer {
             processor.process();
             state = State.INITIALIZED;
 
-        } finally {
+        }
+        finally {
             rwLock.writeLock().unlock();
         }
     }
@@ -101,6 +106,7 @@ public class Initializer {
      * 销毁过程
      *
      * @param processor 规程回调
+     *
      * @throws Throwable 销毁异常
      */
     public final void destroyProcess(final Processor processor) throws Throwable {
@@ -117,7 +123,8 @@ public class Initializer {
                     : State.DESTROYED
             ;
 
-        } finally {
+        }
+        finally {
             rwLock.writeLock().unlock();
         }
     }

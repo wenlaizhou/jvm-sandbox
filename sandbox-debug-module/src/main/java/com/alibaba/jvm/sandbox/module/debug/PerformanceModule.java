@@ -49,6 +49,7 @@ public class PerformanceModule implements Module {
      *
      * @param req  HttpServletRequest
      * @param resp HttpServletResponse
+     *
      * @throws Throwable handle occur error
      */
     @Http("/perf")
@@ -95,7 +96,8 @@ public class PerformanceModule implements Module {
                     new ProgressPrinter(">", 10, printer),
                     events.toArray(new Event.Type[]{})
             );
-        } finally {
+        }
+        finally {
             printer.close();
         }
 
@@ -111,12 +113,16 @@ public class PerformanceModule implements Module {
         static final long INTERVAL_MS = 1000 * 60;
 
         final ReadWriteLock rwLock = new ReentrantReadWriteLock();
+
         volatile ConcurrentHashMap<Event.Type, AtomicInteger> eventCountMap = new ConcurrentHashMap<Event.Type, AtomicInteger>();
 
 
         final Printer printer;
+
         final boolean isPrint;
+
         final AtomicBoolean isRunningRef;
+
         final Thread tPrinter = new Thread("perf-module-printer") {
 
             final DecimalFormat df = new DecimalFormat(".##");
@@ -138,7 +144,8 @@ public class PerformanceModule implements Module {
                         rwLock.writeLock().lock();
                         try {
                             eventCountMap = new ConcurrentHashMap<Event.Type, AtomicInteger>();
-                        } finally {
+                        }
+                        finally {
                             rwLock.writeLock().unlock();
                         }
 
@@ -166,7 +173,8 @@ public class PerformanceModule implements Module {
                         printer.println(outputSB.toString());
 
                     }
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                     //
                 }
             }
@@ -208,7 +216,8 @@ public class PerformanceModule implements Module {
 
                 countRef.incrementAndGet();
 
-            } finally {
+            }
+            finally {
                 rwLock.readLock().unlock();
             }
 

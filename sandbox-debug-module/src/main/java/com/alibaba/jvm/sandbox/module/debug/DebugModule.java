@@ -102,7 +102,8 @@ public class DebugModule implements Module {
                     public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
                         if (isIncludeField) {
                             return super.visitField(access, name, desc, signature, value);
-                        } else {
+                        }
+                        else {
                             return null;
                         }
                     }
@@ -111,7 +112,8 @@ public class DebugModule implements Module {
                     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
                         if (SandboxStringUtils.matching(name, methodNamePattern)) {
                             return super.visitMethod(access, name, desc, signature, exceptions);
-                        } else {
+                        }
+                        else {
                             return null;
                         }
                     }
@@ -123,7 +125,8 @@ public class DebugModule implements Module {
                 resp.getWriter().println(title);
                 resp.getWriter().println(stringWriter.toString());
 
-            } finally {
+            }
+            finally {
                 IOUtils.closeQuietly(is);
                 IOUtils.closeQuietly(stringWriter);
             }
@@ -171,7 +174,8 @@ public class DebugModule implements Module {
         int expand;
         try {
             expand = Integer.getInteger(req.getParameter("expand"));
-        } catch (Throwable cause) {
+        }
+        catch (Throwable cause) {
             expand = 1;
         }
 
@@ -198,7 +202,8 @@ public class DebugModule implements Module {
                     RETURN, BEFORE, THROWS
             );
 
-        } finally {
+        }
+        finally {
             printer.close();
         }
 
@@ -285,7 +290,8 @@ public class DebugModule implements Module {
                     },
                     toCallEventTypeArray(triggers)
             );
-        } finally {
+        }
+        finally {
             printer.close();
         }
 
@@ -329,7 +335,8 @@ public class DebugModule implements Module {
                     },
                     Event.Type.RETURN, Event.Type.THROWS
             );
-        } finally {
+        }
+        finally {
             printer.close();
         }
 

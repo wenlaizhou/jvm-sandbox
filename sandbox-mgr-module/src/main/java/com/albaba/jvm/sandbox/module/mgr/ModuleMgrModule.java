@@ -94,7 +94,8 @@ public class ModuleMgrModule implements Module {
                         info.author()
                 );
 
-            } catch (ModuleException me) {
+            }
+            catch (ModuleException me) {
                 logger.warn("module[id={};class={};] was occur error. ERROR_CODE={}, ignore this module.",
                         me.getUniqueId(), me.getErrorCode(), me);
             }
@@ -129,7 +130,8 @@ public class ModuleMgrModule implements Module {
             try {
                 moduleManager.unload(info.id());
                 total++;
-            } catch (ModuleException me) {
+            }
+            catch (ModuleException me) {
                 logger.warn("unload module[id={};] occur error={}.", me.getUniqueId(), me.getErrorCode(), me);
             }
         }
@@ -148,10 +150,12 @@ public class ModuleMgrModule implements Module {
                 try {
                     moduleManager.active(info.id());
                     total++;
-                } catch (ModuleException me) {
+                }
+                catch (ModuleException me) {
                     logger.warn("active module[id={};] occur error={}.", me.getUniqueId(), me.getErrorCode(), me);
                 }// try
-            } else {
+            }
+            else {
                 total++;
             }
         }// for
@@ -170,10 +174,12 @@ public class ModuleMgrModule implements Module {
                 try {
                     moduleManager.frozen(info.id());
                     total++;
-                } catch (ModuleException me) {
+                }
+                catch (ModuleException me) {
                     logger.warn("frozen module[id={};] occur error={}.", me.getUniqueId(), me.getErrorCode(), me);
                 }
-            } else {
+            }
+            else {
                 total++;
             }
 

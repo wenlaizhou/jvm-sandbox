@@ -55,6 +55,7 @@ public class FeatureCodec {
      * collection集合转换到feature字符串
      *
      * @param collection 待转换的collection集合
+     *
      * @return feature字符串
      */
     public String toString(final Collection<String> collection) {
@@ -79,6 +80,7 @@ public class FeatureCodec {
      * feature字符串转换到collection集合
      *
      * @param featureString the feature string
+     *
      * @return the collection
      */
     public Collection<String> toCollection(final String featureString) {
@@ -108,6 +110,7 @@ public class FeatureCodec {
      * map集合转换到feature字符串
      *
      * @param map map集合
+     *
      * @return feature字符串
      */
     public String toString(final Map<String, String> map) {
@@ -140,6 +143,7 @@ public class FeatureCodec {
      * feature字符串转换到map集合
      *
      * @param featureString the feature string
+     *
      * @return the map
      */
     public Map<String, String> toMap(final String featureString) {
@@ -190,6 +194,7 @@ public class FeatureCodec {
      * 转义编码
      *
      * @param string 原始字符串
+     *
      * @return 转义编码后的字符串
      */
     private String escapeEncode(final String string) {
@@ -212,6 +217,7 @@ public class FeatureCodec {
      * 转义解码
      *
      * @param string 编码字符串
+     *
      * @return 转义解码后的字符串
      */
     private String escapeDecode(final String string) {
@@ -229,7 +235,8 @@ public class FeatureCodec {
                 case READ_CHAR: {
                     if (c == ESCAPE_PREFIX_CHAR) {
                         state = ESCAPE_DECODE_STATE.ESCAPE_CHAR;
-                    } else {
+                    }
+                    else {
                         segmentCharArray[segmentCharArrayIndex++] = c;
                     }
                     break;
@@ -239,7 +246,8 @@ public class FeatureCodec {
                     state = ESCAPE_DECODE_STATE.READ_CHAR;
                     if (isSpecialChar(c)) {
                         segmentCharArray[segmentCharArrayIndex++] = c;
-                    } else {
+                    }
+                    else {
                         segmentCharArray[segmentCharArrayIndex++] = ESCAPE_PREFIX_CHAR;
                         segmentCharArray[segmentCharArrayIndex++] = c;
                     }
@@ -263,6 +271,7 @@ public class FeatureCodec {
      *
      * @param string    编码字符串
      * @param splitChar 分割符
+     *
      * @return 拆分后的字符串数组
      */
     private String[] escapeSplit(final String string, final char splitChar) {

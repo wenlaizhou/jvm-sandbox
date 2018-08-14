@@ -13,6 +13,7 @@ public interface Printer {
      * 输出文本
      *
      * @param string 文本
+     *
      * @return this
      */
     Printer print(String string);
@@ -21,6 +22,7 @@ public interface Printer {
      * 输出文本
      *
      * @param string 文本
+     *
      * @return this
      */
     Printer println(String string);
@@ -54,6 +56,7 @@ public interface Printer {
      *
      * @param time 超时时间
      * @param unit 超时时间单位
+     *
      * @return FALSE:在超时时间到达之前返回;TRUE:因超时而返回;
      */
     boolean waitingForBroken(long time, TimeUnit unit);

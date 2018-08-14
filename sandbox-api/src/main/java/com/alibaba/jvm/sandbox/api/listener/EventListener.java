@@ -40,6 +40,7 @@ public interface EventListener {
      * </pre>
      *
      * @param event 触发事件
+     *
      * @throws Throwable 处理异常
      */
     void onEvent(Event event) throws Throwable;

@@ -26,6 +26,7 @@ public interface ModuleManager {
      *                普通刷新将会寻找变动的用户模块文件，对已经加载但模块文件已经变动（删除or变更）的模块进行卸载。
      *                并重新加载当前用户模块目录中新增的模块
      *                </p>
+     *
      * @throws ModuleException 刷新模块失败
      */
     void flush(boolean isForce) throws ModuleException;
@@ -43,6 +44,7 @@ public interface ModuleManager {
      * 卸载指定模块
      *
      * @param uniqueId 模块ID
+     *
      * @throws ModuleException 卸载模块失败
      */
     void unload(String uniqueId) throws ModuleException;
@@ -52,6 +54,7 @@ public interface ModuleManager {
      * 激活的模块能正常的感知Event
      *
      * @param uniqueId 模块ID
+     *
      * @throws ModuleException 激活模块失败
      */
     void active(String uniqueId) throws ModuleException;
@@ -61,6 +64,7 @@ public interface ModuleManager {
      * 冻结的模块将不会感知到Event,但代码的插桩还在
      *
      * @param uniqueId 模块ID
+     *
      * @throws ModuleException 冻结模块失败
      */
     void frozen(String uniqueId) throws ModuleException;
@@ -76,6 +80,7 @@ public interface ModuleManager {
      * 获取模块
      *
      * @param uniqueId 模块ID
+     *
      * @return 模块
      */
     Module get(String uniqueId);
@@ -84,7 +89,9 @@ public interface ModuleManager {
      * 获取模块当前渲染的类个数
      *
      * @param uniqueId 模块ID
+     *
      * @return 模块当前渲染的类个数
+     *
      * @throws ModuleException 模块不存在
      */
     int cCnt(String uniqueId) throws ModuleException;
@@ -93,7 +100,9 @@ public interface ModuleManager {
      * 获取模块当前渲染的方法个数
      *
      * @param uniqueId 模块ID
+     *
      * @return 模块当前渲染的方法个数
+     *
      * @throws ModuleException 模块不存在
      */
     int mCnt(String uniqueId) throws ModuleException;
@@ -102,7 +111,9 @@ public interface ModuleManager {
      * 获取模块激活状态，判断当前模块是否已经被激活
      *
      * @param uniqueId 模块ID
+     *
      * @return true:已激活;false:未激活
+     *
      * @throws ModuleException 模块不存在
      */
     boolean isActivated(String uniqueId) throws ModuleException;
@@ -111,7 +122,9 @@ public interface ModuleManager {
      * 获取模块加载状态，判断当前模块是否已经被加载
      *
      * @param uniqueId 模块ID
+     *
      * @return true:已加载;false:未加载
+     *
      * @throws ModuleException 模块不存在
      */
     boolean isLoaded(String uniqueId) throws ModuleException;
@@ -120,7 +133,9 @@ public interface ModuleManager {
      * 获取模块所在的Jar文件
      *
      * @param uniqueId 模块ID
+     *
      * @return 模块所在的Jar文件
+     *
      * @throws ModuleException 模块不存在
      */
     File getJarFile(String uniqueId) throws ModuleException;

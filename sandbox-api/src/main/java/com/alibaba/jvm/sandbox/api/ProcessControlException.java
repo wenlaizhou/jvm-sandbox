@@ -26,6 +26,7 @@ public final class ProcessControlException extends Exception {
      * 中断当前代码处理流程,并立即返回指定对象
      *
      * @param object 返回对象
+     *
      * @throws ProcessControlException 抛出立即返回流程控制异常
      */
     public static void throwReturnImmediately(final Object object) throws ProcessControlException {
@@ -36,6 +37,7 @@ public final class ProcessControlException extends Exception {
      * 中断当前代码处理流程,并抛出指定异常
      *
      * @param throwable 指定异常
+     *
      * @throws ProcessControlException 抛出立即抛出异常流程控制异常
      */
     public static void throwThrowsImmediately(final Throwable throwable) throws ProcessControlException {

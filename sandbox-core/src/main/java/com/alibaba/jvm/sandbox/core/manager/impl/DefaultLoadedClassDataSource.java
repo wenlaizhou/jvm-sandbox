@@ -93,6 +93,7 @@ public class DefaultLoadedClassDataSource implements LoadedClassDataSource {
      * 根据过滤器搜索出匹配的类集合
      *
      * @param filter 扩展过滤器
+     *
      * @return 匹配的类集合
      */
     public Set<Class<?>> find(Filter filter) {
@@ -107,7 +108,8 @@ public class DefaultLoadedClassDataSource implements LoadedClassDataSource {
                 final String superClassJavaClassName;
                 if (null == clazz.getSuperclass()) {
                     superClassJavaClassName = null;
-                } else {
+                }
+                else {
                     superClassJavaClassName = clazz.getSuperclass().getName();
                 }
 
@@ -121,7 +123,8 @@ public class DefaultLoadedClassDataSource implements LoadedClassDataSource {
                     classes.add(clazz);
                 }
 
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
 
                 // 在这里可能会遇到非常坑爹的模块卸载错误
                 // 当一个URLClassLoader被动态关闭之后，但JVM已经加载的类并不知情（因为没有GC）

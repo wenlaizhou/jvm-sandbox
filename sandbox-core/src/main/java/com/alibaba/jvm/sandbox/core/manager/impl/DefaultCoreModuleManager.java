@@ -40,11 +40,17 @@ import static org.apache.commons.io.FileUtils.listFiles;
 public class DefaultCoreModuleManager implements CoreModuleManager {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final Instrumentation inst;
+
     private final LoadedClassDataSource classDataSource;
+
     private final CoreConfigure cfg;
+
     private final ClassLoader sandboxClassLoader;
+
     private final ModuleLifeCycleEventBus moduleLifeCycleEventBus;
+
     private final ProviderManager providerManager;
 
     // 模块目录&文件集合
@@ -85,7 +91,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
         // 初始化加载所有的模块
         try {
             reset();
-        } catch (ModuleException e) {
+        }
+        catch (ModuleException e) {
             logger.warn("init module[id={};] occur error={}.", e.getUniqueId(), e.getErrorCode(), e);
         }
     }
@@ -113,7 +120,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                 case LOAD: {
                     try {
                         moduleLifecycle.onLoad();
-                    } catch (Throwable throwable) {
+                    }
+                    catch (Throwable throwable) {
                         throw new ModuleException(uniqueId, MODULE_LOAD_ERROR, throwable);
                     }
                     break;
@@ -122,7 +130,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                 case LOAD_COMPLETED: {
                     try {
                         moduleLifecycle.loadCompleted();
-                    } catch (Throwable throwable) {
+                    }
+                    catch (Throwable throwable) {
                         logger.warn("module[id={}] occur error when load completed.", uniqueId, throwable);
                     }
                     break;
@@ -131,7 +140,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                 case UNLOAD: {
                     try {
                         moduleLifecycle.onUnload();
-                    } catch (Throwable throwable) {
+                    }
+                    catch (Throwable throwable) {
                         throw new ModuleException(coreModule.getUniqueId(), MODULE_UNLOAD_ERROR, throwable);
                     }
                     break;
@@ -140,7 +150,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                 case ACTIVE: {
                     try {
                         moduleLifecycle.onActive();
-                    } catch (Throwable throwable) {
+                    }
+                    catch (Throwable throwable) {
                         throw new ModuleException(coreModule.getUniqueId(), MODULE_ACTIVE_ERROR, throwable);
                     }
                     break;
@@ -149,7 +160,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                 case FROZE: {
                     try {
                         moduleLifecycle.onFrozen();
-                    } catch (Throwable throwable) {
+                    }
+                    catch (Throwable throwable) {
                         throw new ModuleException(coreModule.getUniqueId(), MODULE_FROZEN_ERROR, throwable);
                     }
                     break;
@@ -234,6 +246,7 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
      * @param module            模块对象
      * @param moduleJarFile     模块所在JAR文件
      * @param moduleClassLoader 负责加载模块的ClassLoader
+     *
      * @throws ModuleException 加载模块失败
      */
     private synchronized void load(final String uniqueId,
@@ -252,7 +265,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
         // 注入@Resource资源
         try {
             injectRequiredResource(coreModule);
-        } catch (IllegalAccessException iae) {
+        }
+        catch (IllegalAccessException iae) {
             throw new ModuleException(uniqueId, MODULE_LOAD_ERROR, iae);
         }
 
@@ -286,6 +300,7 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
      *
      * @param coreModule 等待被卸载的模块
      * @param isForce    是否强制卸载
+     *
      * @throws ModuleException 卸载模块失败
      */
     @Override
@@ -295,7 +310,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
         try {
             // 通知生命周期
             fireModuleLifecycle(coreModule, ModuleLifeCycleEventBus.Event.UNLOAD);
-        } catch (ModuleException meCause) {
+        }
+        catch (ModuleException meCause) {
 
             if (isForce) {
                 logger.warn("unload module[id={};class={};], occur error={}, but isForce=true, so ignore this failed.",
@@ -304,7 +320,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                         meCause.getErrorCode(),
                         meCause
                 );
-            } else {
+            }
+            else {
                 throw meCause;
             }
 
@@ -368,12 +385,14 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
             // 通知生命周期
             fireModuleLifecycle(coreModule, ModuleLifeCycleEventBus.Event.FROZE);
 
-        } catch (ModuleException meCause) {
+        }
+        catch (ModuleException meCause) {
 
             if (isForce) {
                 logger.warn("frozen module[id={};class={};], occur error, but isForce=true, so ignore this failed.",
                         coreModule.getUniqueId(), coreModule.getModule().getClass(), meCause);
-            } else {
+            }
+            else {
                 throw meCause;
             }
 
@@ -418,7 +437,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                                                              final File child) {
         try {
             return FileUtils.directoryContains(directory, child);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // 如果这里能抛出异常，则说明directory或者child发生损坏
             // 需要返回TRUE以此作乐观推断，出错的情况也属于当前目录
             // 这个逻辑没毛病,主要是用来应对USER目录被删除引起IOException的情况
@@ -446,6 +466,7 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
      * 用户模块加载回调
      */
     final private class InnerModuleLoadCallback implements ModuleJarLoader.ModuleLoadCallback {
+
         @Override
         public void onLoad(final String uniqueId,
                            final Class moduleClass,
@@ -483,7 +504,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
 
         if (isForce) {
             forceFlush();
-        } else {
+        }
+        else {
             softFlush();
         }
 
@@ -505,7 +527,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                     && moduleLibDir.canRead()) {
                 new ModuleJarLoader(moduleLibDir, cfg.getLaunchMode(), sandboxClassLoader)
                         .load(new InnerModuleJarLoadCallback(), new InnerModuleLoadCallback());
-            } else {
+            }
+            else {
                 logger.warn("MODULE-LIB[{}] can not access, ignore flush load this lib.", moduleLibDir);
             }
         }
@@ -572,7 +595,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                     final long checksumCRC32;
                     try {
                         checksumCRC32 = FileUtils.checksumCRC32(jarFile);
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e) {
                         logger.warn("soft flush {} failed, ignore this file.", jarFile, e);
                         continue;
                     }
@@ -608,7 +632,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                     new ModuleJarLoader(jarFile, cfg.getLaunchMode(), sandboxClassLoader)
                             .load(new InnerModuleJarLoadCallback(), new InnerModuleLoadCallback());
                 }
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("flushing USER_LIB_MODULE[{}] failed.", userModuleLibDir, cause);
             }
 
@@ -652,7 +677,8 @@ public class DefaultCoreModuleManager implements CoreModuleManager {
                     && userModuleLibDir.canRead()) {
                 new ModuleJarLoader(userModuleLibDir, cfg.getLaunchMode(), sandboxClassLoader)
                         .load(new InnerModuleJarLoadCallback(), new InnerModuleLoadCallback());
-            } else {
+            }
+            else {
                 logger.warn("MODULE-LIB[{}] can not access, ignore flush load this lib.", userModuleLibDir);
             }
         }

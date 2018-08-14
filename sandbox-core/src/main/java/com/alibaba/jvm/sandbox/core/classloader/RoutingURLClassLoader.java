@@ -17,6 +17,7 @@ import java.util.Collection;
 public class RoutingURLClassLoader extends URLClassLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(RoutingURLClassLoader.class);
+
     private final Routing[] routingArray;
 
     public RoutingURLClassLoader(final URL[] urls,
@@ -45,7 +46,8 @@ public class RoutingURLClassLoader extends URLClassLoader {
                 final ClassLoader routingClassLoader = routing.classLoader;
                 try {
                     return routingClassLoader.loadClass(javaClassName);
-                } catch (Exception cause) {
+                }
+                catch (Exception cause) {
                     // 如果在当前routingClassLoader中找不到应该优先加载的类(应该不可能，但不排除有就是故意命名成同名类)
                     // 此时应该忽略异常，继续往下加载
                     // ignore...
@@ -65,7 +67,8 @@ public class RoutingURLClassLoader extends URLClassLoader {
                 resolveClass(aClass);
             }
             return aClass;
-        } catch (Exception cause) {
+        }
+        catch (Exception cause) {
             return super.loadClass(javaClassName, resolve);
         }
 
@@ -78,6 +81,7 @@ public class RoutingURLClassLoader extends URLClassLoader {
     public static class Routing {
 
         private final Collection<String/*REGEX*/> regexExpresses = new ArrayList<String>();
+
         private final ClassLoader classLoader;
 
         /**
@@ -100,6 +104,7 @@ public class RoutingURLClassLoader extends URLClassLoader {
          * 命中匹配规则的类加载,将会从此ClassLoader中完成对应的加载行为
          *
          * @param javaClassName 参与匹配的Java类名
+         *
          * @return true:命中;false:不命中;
          */
         private boolean isHit(final String javaClassName) {
@@ -108,7 +113,8 @@ public class RoutingURLClassLoader extends URLClassLoader {
                     if (javaClassName.matches(regexExpress)) {
                         return true;
                     }
-                } catch (Throwable cause) {
+                }
+                catch (Throwable cause) {
                     logger.warn("routing {} failed, regex-express=.", javaClassName, regexExpress, cause);
                 }
             }

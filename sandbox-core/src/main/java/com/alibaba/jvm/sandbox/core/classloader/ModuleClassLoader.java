@@ -28,8 +28,11 @@ import static com.alibaba.jvm.sandbox.core.util.SandboxReflectUtils.*;
 public class ModuleClassLoader extends RoutingURLClassLoader {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final File moduleJarFile;
+
     private final File tempModuleJarFile;
+
     private final long checksumCRC32;
 
     private static File copyToTempFile(final File moduleJarFile) throws IOException {
@@ -63,7 +66,8 @@ public class ModuleClassLoader extends RoutingURLClassLoader {
         try {
             cleanProtectionDomainWhichCameFromModuleClassLoader();
             logger.debug("clean ProtectionDomain in {}'s acc success.", this);
-        } catch (Throwable e) {
+        }
+        catch (Throwable e) {
             logger.warn("clean ProtectionDomain in {}'s acc failed.", this, e);
         }
 
@@ -112,7 +116,8 @@ public class ModuleClassLoader extends RoutingURLClassLoader {
                 try {
                     final Method closeMethod = unCaughtGetClassDeclaredJavaMethod(URLClassLoader.class, "close");
                     closeMethod.invoke(this);
-                } catch (Throwable cause) {
+                }
+                catch (Throwable cause) {
                     logger.warn("close ModuleClassLoader[file={}] failed. JDK7+", moduleJarFile, cause);
                 }
                 return;
@@ -135,16 +140,19 @@ public class ModuleClassLoader extends RoutingURLClassLoader {
                                 sun_misc_URLClassPath_JarLoader
                         );
                         java_util_jar_JarFile.close();
-                    } catch (Throwable t) {
+                    }
+                    catch (Throwable t) {
                         // if we got this far, this is probably not a JAR loader so skip it
                     }
                 }
 
-            } catch (Throwable cause) {
+            }
+            catch (Throwable cause) {
                 logger.warn("close ModuleClassLoader[file={}] failed. probably not a HOTSPOT VM", moduleJarFile, cause);
             }
 
-        } finally {
+        }
+        finally {
 
             // 在这里删除掉临时文件
             FileUtils.deleteQuietly(tempModuleJarFile);

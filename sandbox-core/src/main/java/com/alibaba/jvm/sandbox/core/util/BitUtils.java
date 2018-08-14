@@ -13,6 +13,7 @@ public class BitUtils {
      *
      * @param target    目标数
      * @param maskArray 掩码数组
+     *
      * @return true:在掩码范围内;false:不在掩码范围内
      */
     public static boolean isIn(int target, int... maskArray) {

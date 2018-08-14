@@ -14,12 +14,19 @@ import java.lang.reflect.Method;
 public class Spy {
 
     private static volatile Method ON_BEFORE_METHOD;
+
     private static volatile Method ON_RETURN_METHOD;
+
     private static volatile Method ON_THROWS_METHOD;
+
     private static volatile Method ON_LINE_METHOD;
+
     private static volatile Method ON_CALL_BEFORE_METHOD;
+
     private static volatile Method ON_CALL_RETURN_METHOD;
+
     private static volatile Method ON_CALL_THROWS_METHOD;
+
     private static final Class<Spy.Ret> SPY_RET_CLASS = Spy.Ret.class;
 
     /**
@@ -89,7 +96,8 @@ public class Spy {
         try {
             return (Ret) ON_BEFORE_METHOD.invoke(null,
                     listenerId, targetClassLoaderObjectID, SPY_RET_CLASS, javaClassName, javaMethodName, javaMethodDesc, target, argumentArray);
-        } finally {
+        }
+        finally {
             selfCallBarrier.exit(thread, node);
         }
     }
@@ -103,7 +111,8 @@ public class Spy {
         final SelfCallBarrier.Node node = selfCallBarrier.enter(thread);
         try {
             return (Ret) ON_RETURN_METHOD.invoke(null, listenerId, SPY_RET_CLASS, object);
-        } finally {
+        }
+        finally {
             selfCallBarrier.exit(thread, node);
         }
     }
@@ -117,7 +126,8 @@ public class Spy {
         final SelfCallBarrier.Node node = selfCallBarrier.enter(thread);
         try {
             return (Ret) ON_THROWS_METHOD.invoke(null, listenerId, SPY_RET_CLASS, throwable);
-        } finally {
+        }
+        finally {
             selfCallBarrier.exit(thread, node);
         }
     }
@@ -128,13 +138,18 @@ public class Spy {
     public static class Ret {
 
         public static final int RET_STATE_NONE = 0;
+
         public static final int RET_STATE_RETURN = 1;
+
         public static final int RET_STATE_THROWS = 2;
+
         private static final Ret RET_NONE = new Ret(RET_STATE_NONE, null);
+
         /**
          * 返回状态(0:NONE;1:RETURN;2:THROWS)
          */
         public final int state;
+
         /**
          * 应答对象
          */
@@ -171,8 +186,11 @@ public class Spy {
     public static class SelfCallBarrier {
 
         public static class Node {
+
             private final Thread thread;
+
             private Node pre;
+
             private Node next;
 
             Node() {

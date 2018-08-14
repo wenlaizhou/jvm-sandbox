@@ -12,6 +12,7 @@ import com.alibaba.jvm.sandbox.core.manager.CoreModuleManager;
 class DefaultModuleController implements ModuleController {
 
     private final CoreModule coreModule;
+
     private final CoreModuleManager coreModuleManager;
 
     DefaultModuleController(final CoreModule coreModule,
