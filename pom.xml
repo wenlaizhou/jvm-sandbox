@@ -168,6 +168,12 @@
                 <version>1.2</version>
             </dependency>
 
+            <dependency>
+                <groupId>groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>1.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
