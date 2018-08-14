@@ -26,16 +26,13 @@ public class AgentLauncher {
             + File.separator + "..";
 
     // sandbox配置文件目录
-    private static final String SANDBOX_CFG_PATH
-            = SANDBOX_HOME + File.separatorChar + "cfg";
+    private static final String SANDBOX_CFG_PATH = SANDBOX_HOME + File.separatorChar + "cfg";
 
     // 模块目录
-    private static final String SANDBOX_MODULE_PATH
-            = SANDBOX_HOME + File.separatorChar + "module";
+    private static final String SANDBOX_MODULE_PATH = SANDBOX_HOME + File.separatorChar + "module";
 
-    private static final String SANDBOX_USER_MODULE_PATH
-            = System.getProperties().getProperty("user.home")
-            + File.separator + ".sandbox-module";
+    private static final String SANDBOX_USER_MODULE_PATH =
+            System.getProperties().getProperty("user.home") + File.separator + ".sandbox-module";
 
     // sandbox核心工程文件
     private static final String SANDBOX_CORE_JAR_PATH
@@ -66,8 +63,7 @@ public class AgentLauncher {
             + File.separator + ".sandbox.token";
 
     // 全局持有ClassLoader用于隔离sandbox实现
-    private static volatile Map<String/*NAMESPACE*/, ClassLoader> sandboxClassLoaderMap
-            = new ConcurrentHashMap<String, ClassLoader>();
+    private static volatile Map<String/*NAMESPACE*/, ClassLoader> sandboxClassLoaderMap = new ConcurrentHashMap<>();
 
     private static final String CLASS_OF_CORE_CONFIGURE = "com.alibaba.jvm.sandbox.core.CoreConfigure";
 
