@@ -2,11 +2,11 @@ package com.alibaba.jvm.sandbox.agent.main;
 
 import groovy.lang.GroovyClassLoader;
 
-public class Boot {
+public class GroovyUtils {
 
-    public static void main(String[] args) {
+    public static Class compile(String script) {
         GroovyClassLoader loader = new GroovyClassLoader();
-        System.out.println(loader.generateScriptName());
+        return loader.parseClass(script);
     }
 
 }
