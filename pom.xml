@@ -185,47 +185,4 @@
         <module>sandbox-mgr-provider</module>
     </modules>
 
-
-    <!-- 这里是为了发布到MAVEN中央仓库所做的配置 -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>luanjia-ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>luanjia-ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
-    <description>Alibaba JVM-Sandbox OpenSource Project</description>
-    <url>https://github.com/alibaba/JVM-Sandbox</url>
-
-    <licenses>
-        <license>
-            <name>GPLv3</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>luanjia</name>
-            <email>dongchenxu_seu@163.com</email>
-            <organization>Alibaba Open Source</organization>
-            <organizationUrl>https://github.com/alibaba</organizationUrl>
-        </developer>
-        <developer>
-            <name>vlinux</name>
-            <email>oldmanpushcart@gmail.com</email>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/alibaba/JVM-Sandbox.git</connection>
-        <developerConnection>scm:git:https://github.com/alibaba/JVM-Sandbox.git</developerConnection>
-        <url>https://github.com/alibaba/JVM-Sandbox</url>
-    </scm>
-
-
 </project>
