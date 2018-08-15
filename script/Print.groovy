@@ -2,7 +2,7 @@ import com.alibaba.jvm.sandbox.agent.main.MyInterface
 
 class Print implements MyInterface {
 
-    String print() {
-        return "hello world"
+    def void print() {
+        println "hello world"
     }
 }

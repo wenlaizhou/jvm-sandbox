@@ -2,6 +2,6 @@ package com.alibaba.jvm.sandbox.agent.main;
 
 public interface MyInterface {
 
-    String print();
+    void print();
 
 }

@@ -6,9 +6,13 @@ public class Boot {
 
         Class res = GroovyUtils.compileFile("script/Print.groovy");
 
-        MyInterface ins = (MyInterface) res.newInstance();
-        System.out.println(ins.print());
-
+        if (res == null) {
+            return;
+        }
+        Object ins = res.newInstance();
+        if (ins instanceof MyInterface) {
+            ((MyInterface) ins).print();
+        }
     }
 
 }
